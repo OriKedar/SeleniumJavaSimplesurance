@@ -31,7 +31,6 @@ public class SimpleNewPolicyWithSepa {
         newInsurancePage = new NewInsurancePage(driver);
         paymentPage = new PaymentPage(driver);
         summeryPage = new SummeryPage(driver);
-        driver.get("https://insurance-manager.sb-qa-candidatetask.sisu.sh/login");
     }
 
     @AfterTest
@@ -41,6 +40,7 @@ public class SimpleNewPolicyWithSepa {
 
     @Test
     void Login() {
+        driver.get("https://insurance-manager.sb-qa-candidatetask.sisu.sh/login");
         Assert.assertTrue(loginPage.isLoginPageOpened(), "Login page was not opened");
         loginPage.preformLogin("testsellingpartner5@simplesurance.de", "TestSellingPartner5Pass");
         Assert.assertTrue(homePage.isHomePageOpen(), "Login failed - Home page was not opened");

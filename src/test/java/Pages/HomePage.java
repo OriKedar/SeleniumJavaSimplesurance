@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomePage {
 
     public WebDriver driver;
@@ -30,8 +33,48 @@ public class HomePage {
         DriverUtils.clearAndSendKeys(this.driver.findElement(By.id(":rd:")), policyId + Keys.ENTER);
     }
 
+    public void filterTableByEmail(String emailAddress){
+        DriverUtils.chooseNotRandomDropListItem(this.driver, ":r8:", 1);
+        DriverUtils.clearAndSendKeys(this.driver.findElement(By.id(":rd:")), emailAddress + Keys.ENTER);
+    }
+
+    public boolean isPageFiltered(){
+        List<WebElement> filters = this.driver.findElements(By.xpath("//*[@data-testid='CancelIcon']"));
+        return !filters.isEmpty();
+    }
+
+    public void removePageFilters(){
+        List<WebElement> filters = this.driver.findElements(By.xpath("//*[@data-testid='CancelIcon']"));
+        for (WebElement filter : filters){
+            filter.click();
+        }
+    }
+
+    public int getNumberOfTableRows(){
+        WebElement tableBody = this.driver.findElement(By.tagName("tbody"));
+        List<WebElement> tableRows = tableBody.findElements(By.tagName("tr"));
+        return tableRows.size();
+    }
+
     public String isTRContainsPolicy(){
         WebElement tableBody = this.driver.findElement(By.tagName("tbody"));
         return tableBody.findElement(By.tagName("button")).getText();
+    }
+
+    public List<String> getAllPolicies(){
+        WebElement tableBody = this.driver.findElement((By.tagName("tbody")));
+        List<WebElement> policies = tableBody.findElements(By.tagName("button"));
+        List<String> policiesInt = new ArrayList<>();
+        for(WebElement policy : policies) {
+            policiesInt.add(policy.getText());
+        }
+        return policiesInt;
+    }
+
+    public void sortTable(){
+        WebElement sortData = this.driver.findElement(By.xpath("//*[@data-sort='POLICY_NUMBER']"));
+        sortData.findElement(By.tagName("svg")).click();
+//        List<WebElement> sortButtons = this.driver.findElements(By.className("MuiSvgIcon-root MuiSvgIcon-fontSizeMedium jss214 css-vubbuv"));
+//        sortButtons.get(1).click();
     }
 }
