@@ -55,6 +55,11 @@ public class DriverUtils {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public static void waitForElementToBeExists(WebDriver driver, By locator){
+        WebDriverWait wait = new WebDriverWait(driver, 6);
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element){
         WebDriverWait wait = new WebDriverWait(driver, 8);
         wait.until(ExpectedConditions.elementToBeClickable(element));
