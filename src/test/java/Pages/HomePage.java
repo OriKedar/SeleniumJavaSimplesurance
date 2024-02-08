@@ -74,7 +74,9 @@ public class HomePage {
     public void sortTable(){
         WebElement sortData = this.driver.findElement(By.xpath("//*[@data-sort='POLICY_NUMBER']"));
         sortData.findElement(By.tagName("svg")).click();
-//        List<WebElement> sortButtons = this.driver.findElements(By.className("MuiSvgIcon-root MuiSvgIcon-fontSizeMedium jss214 css-vubbuv"));
-//        sortButtons.get(1).click();
+    }
+
+    public void openImportPage(){
+        this.driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[1]/div/a[3]/button")).click();
     }
 }
